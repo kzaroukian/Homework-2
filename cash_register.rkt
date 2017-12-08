@@ -1,23 +1,22 @@
 #lang scheme
 (define taxRate 0.065)
+(define taxAdded 1.065)
 (define mon "$")
 (define subtotal "Subtotal: $")
 (define tax "Tax: $")
 (define cost "Total cost: $")
 
 (define (calc inp total)
-  (cond
-        ((eq? inp 0) (print inp total)) ;;; true
-           (else (let ((inp (read))) (total(+ total inp))((display)(calc(inp total))) (newline))))) ;;; false
-        
-(define (print a b)
-      (display subtotal)
-      (display a)(newline)
+ (cond
+    ((eq? inp 0) 
+     (display subtotal)
+      (display total)(newline)
       (display tax)
-      (display (-(* b taxRate) a))(newline)
+      (display (* total taxRate))(newline)
       (display cost)
-      (display (* b taxRate)) (newline)
-  )
+      (display (* total taxAdded)) (newline)
+                 )
+    (else (let ((inp (read))) (display (+ inp total))(newline) (calc inp (+ inp total))))))
 
 (define start "Scheme Point-of-Sale")
 (display start)(newline)
@@ -26,4 +25,4 @@
 (define line "Enter value: ")
 (display line)(newline)
 
-(calc 0 0) 
+(calc 1 0)  
